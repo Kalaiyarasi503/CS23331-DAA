@@ -1,47 +1,39 @@
-/*Find the length of the Longest Non-decreasing Subsequence in a given Sequence*/
-#include <stdio.h>
-#include <stdlib.h>
-int longestNonDecreasingSubsequence(int *sequence, int n) {
-    if (n == 0) {
-        return 0;
-    }
-    int *dp = (int *)malloc(n * sizeof(int));
-    if (dp == NULL) {
-        return -1; 
-    }
-    for (int i = 0; i < n; i++) {
-        dp[i] = 1;
-    }
-    for (int i = 1; i < n; i++) {
-        for (int j = 0; j < i; j++) {
-            if (sequence[i] >= sequence[j]) {
-                if (dp[i] < dp[j] + 1) {
-                    dp[i] = dp[j] + 1;
-                }
-            }
-        }
-    }
-    int maxLength = 0;
-    for (int i = 0; i < n; i++) {
-        if (dp[i] > maxLength) {
-            maxLength = dp[i];
-        }
-    }
-    free(dp); 
-    return maxLength;
+/*Convert the following algorithm into a program and find its time
+complexity using counter method.
+            
+void function(int n)
+{
+    int c= 0;
+    for(int i=n/2; i<n; i++)
+        for(int j=1; j<n; j = 2 * j)
+            for(int k=1; k<n; k = k * 2)
+                c++;
 }
-int main() {
+ */
+ #include<stdio.h>
+void function(int n)
+{
+    int p=0;
+    p++;
+    int c=0;
+    for(int i=n/2;i<n;i++)
+    {
+        p++;
+        for(int j=1;j<n;j=2*j)
+        {
+            p++;
+            for(int k=1;k<n;k=k*2)
+            {
+                p++;
+                c++;
+                p++;
+            }p++;
+        }p++;
+    }p++;
+    printf("%d",p);
+}
+int main(){
     int n;
-    scanf("%d", &n);
-    int *sequence = (int *)malloc(n * sizeof(int));
-    if (sequence == NULL) {
-        return 1; 
-    }
-    for (int i = 0; i < n; i++) {
-      scanf("%d", &sequence[i]);
-    }
-    int result = longestNonDecreasingSubsequence(sequence, n);
-    printf("%d\n", result);
-    free(sequence); 
-    return 0;
+    scanf("%d",&n);
+    function(n);
 }
