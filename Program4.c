@@ -1,39 +1,22 @@
-/*Convert the following algorithm into a program and find its time
-complexity using counter method.
-            
-void function(int n)
-{
-    int c= 0;
-    for(int i=n/2; i<n; i++)
-        for(int j=1; j<n; j = 2 * j)
-            for(int k=1; k<n; k = k * 2)
-                c++;
-}
- */
- #include<stdio.h>
-void function(int n)
-{
-    int p=0;
-    p++;
-    int c=0;
-    for(int i=n/2;i<n;i++)
-    {
-        p++;
-        for(int j=1;j<n;j=2*j)
-        {
-            p++;
-            for(int k=1;k<n;k=k*2)
-            {
-                p++;
-                c++;
-                p++;
-            }p++;
-        }p++;
-    }p++;
-    printf("%d",p);
+/*Given an array of N integer, we have to maximize the sum of arr[i] * i, where i is the index of the element (i = 0, 1, 2, ..., N).Write an algorithm based on Greedy technique with a Complexity O(nlogn)*/
+#include<stdio.h>
+#include<stdlib.h>
+int compare(const void*a,const void*b){
+return(*(int*)a-*(int*)b);
 }
 int main(){
-    int n;
-    scanf("%d",&n);
-    function(n);
+int n;
+scanf("%d",&n);
+int*arr=(int*)malloc(n*sizeof(int));
+for(int i=0;i<n;i++){
+scanf("%d",&arr[i]);
+}
+qsort(arr,n,sizeof(int),compare);
+int max_sum=0;
+for(int i=0;i<n;i++){
+max_sum += arr[i]*i;
+}
+printf("%d\n",max_sum);
+free(arr);
+return 0;
 }

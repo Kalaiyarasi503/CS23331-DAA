@@ -1,38 +1,22 @@
-/*Convert the following algorithm into a program and find its time complexity using counter method.
-
-void reverse(int n)
-{
-   int rev = 0, remainder;
-   while (n != 0) 
-    {
-        remainder = n % 10;
-        rev = rev * 10 + remainder;
-        n/= 10;
-        
-    }
-print(rev);
-}
- */
- #include<stdio.h>
-void reverse(int n)
-{
-    int rev=0,remainder;
-    int c=0;
-    c+=2;
-    while(n!=0)
-    {
-        c++;
-        remainder=n%10;
-        c++;
-        rev=rev*10+remainder;
-        c++;
-        n/=10;
-        c++;
-    }c++;
-    printf("%d",c);
+/*Given an array of N integer, we have to maximize the sum of arr[i] * i, where i is the index of the element (i = 0, 1, 2, ..., N).Write an algorithm based on Greedy technique with a Complexity O(nlogn)*/
+#include<stdio.h>
+#include<stdlib.h>
+int compare(const void*a,const void*b){
+return(*(int*)a-*(int*)b);
 }
 int main(){
-    int n;
-    scanf("%d",&n);
-    reverse(n);
+int n;
+scanf("%d",&n);
+int*arr=(int*)malloc(n*sizeof(int));
+for(int i=0;i<n;i++){
+scanf("%d",&arr[i]);
+}
+qsort(arr,n,sizeof(int),compare);
+int max_sum=0;
+for(int i=0;i<n;i++){
+max_sum += arr[i]*i;
+}
+printf("%d\n",max_sum);
+free(arr);
+return 0;
 }

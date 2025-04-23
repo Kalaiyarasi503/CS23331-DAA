@@ -1,53 +1,48 @@
-/*Convert the following algorithm into a program and find its time complexity using the counter method.
-void func(int n)
-{
-    if(n==1)
-    {
-      printf("*");
-    }
-    else
-    {
-     for(int i=1; i<=n; i++)
-     {
-       for(int j=1; j<=n; j++)
-       {
-          printf("*");
-          printf("*");
-          break;
-       }
-     }
-   }                      
- }*/
- #include<stdio.h>
-void fun(int n)
-{
-    int c=0;
-    if(n==1)
-    {
-        c++;
-    }
-    else
-    {
-        for(int i=1;i<=n;i++)
-        {
-            c++;
-            for(int j=1;i<=n;j++)
-            {
-                c++;
-                c++;
-                c++;
-                break;
-            }
-            c++;
+/*Assume you are an awesome parent and want to give your children some cookies. But, you should give each child at most one cookie.
+
+Each child i has a greed factor g[i], which is the minimum size of a cookie that the child will be content with; and each cookie j has a size s[j]. If s[j] >= g[i], we can assign the cookie j to the child i, and the child i will be content. Your goal is to maximize the number of your content children and output the maximum number*/
+#include<stdio.h>
+#include<stdlib.h>
+int compare( const void*a,const void*b){
+    return (*(int *)a-*(int *)b);
+}
+int findchild(int g[],int gSize,int s[],int sSize){
+    qsort(g,gSize,sizeof(int),compare);
+    qsort(s,sSize,sizeof(int),compare);
+    int childIndex=0;
+    int cookieIndex=0;
+    while(childIndex < gSize && cookieIndex < sSize){
+        if(s[cookieIndex]>=g[childIndex]){
+            childIndex++;
         }
-        c++;
+        cookieIndex++;
     }
-    c++;
-    printf("%d",c);
+    return childIndex;
 }
 int main(){
-    int n;
-    scanf("%d",&n);
-    fun(n);
+    int gSize,sSize;
+    scanf("%d",&gSize);
+    int*g=(int*)malloc(gSize * sizeof(int));
+    if(g==NULL){
+        fprintf(stderr,"Memory allocation failed\n");
+        return 1;
+    }
+    for(int i=0;i<gSize;i++){
+        scanf("%d",&g[i]);
+    }
+    scanf("%d",&sSize);
+    int*s=(int*)malloc(sSize*sizeof(int));
+    if(s==NULL){
+        fprintf(stderr,"Memory allocation failed\n");
+        free(g);
+        return 1;
+    }
+    for(int i=0;i<sSize;i++){
+        scanf("%d",&s[i]);
+    }
+    printf("%d\n",findchild(g,gSize,s,sSize));
+    free(g);
+    free(s);
     return 0;
 }
+    
