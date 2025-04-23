@@ -1,33 +1,47 @@
-/*Given a sorted array of integers say arr[] and a number x. Write a recursive program using divide and conquer strategy to check if there exist two elements in the array whose sum = x. If there exist such two elements then return the numbers, otherwise print as “No”.
-Note: Write a Divide and Conquer Solution*/
-#include<stdio.h>
-int main(){
-    int n,x;
-    scanf("%d",&n);
-    int arr[n];
-    for(int i=0;i<n;i++){
-        scanf("%d",&arr[i]);
+/*Find the length of the Longest Non-decreasing Subsequence in a given Sequence*/
+#include <stdio.h>
+#include <stdlib.h>
+int longestNonDecreasingSubsequence(int *sequence, int n) {
+    if (n == 0) {
+        return 0;
     }
-    scanf("%d",&x);
-    int left=0,right=n-1;
-    int found=0;
-    while(left<right){
-        int sum=arr[left]+arr[right];
-        if(sum==x){
-            printf("%d\n",arr[left]);
-            printf("%d\n",arr[right]);
-            found=1;
-            break;
-    }    
-    if (sum<x){
-        left++;
+    int *dp = (int *)malloc(n * sizeof(int));
+    if (dp == NULL) {
+        return -1; 
     }
-    else{
-        right++;
+    for (int i = 0; i < n; i++) {
+        dp[i] = 1;
     }
+    for (int i = 1; i < n; i++) {
+        for (int j = 0; j < i; j++) {
+            if (sequence[i] >= sequence[j]) {
+                if (dp[i] < dp[j] + 1) {
+                    dp[i] = dp[j] + 1;
+                }
+            }
+        }
+    }
+    int maxLength = 0;
+    for (int i = 0; i < n; i++) {
+        if (dp[i] > maxLength) {
+            maxLength = dp[i];
+        }
+    }
+    free(dp); 
+    return maxLength;
 }
-if(!found){
-    printf("No\n");
-}
-return 0;
+int main() {
+    int n;
+    scanf("%d", &n);
+    int *sequence = (int *)malloc(n * sizeof(int));
+    if (sequence == NULL) {
+        return 1; 
+    }
+    for (int i = 0; i < n; i++) {
+      scanf("%d", &sequence[i]);
+    }
+    int result = longestNonDecreasingSubsequence(sequence, n);
+    printf("%d\n", result);
+    free(sequence); 
+    return 0;
 }

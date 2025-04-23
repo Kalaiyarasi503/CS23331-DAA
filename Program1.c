@@ -1,34 +1,37 @@
-/*Given an array of 1s and 0s this has all 1s first followed by all 0s. Aim is to find the number of 0s. Write a program using Divide and Conquer to Count the number of zeroes in the given array.
-Input Format
-   First Line Contains Integer m – Size of array
-   Next m lines Contains m numbers – Elements of an array
-Output Format
-   First Line Contains Integer – Number of zeroes present in the given array.
-
-*/
+/*Ram and Sita are playing with numbers by giving puzzles to each other. Now it was Ram term, so he gave Sita a positive integer ‘n’ and two numbers 1 and 3. He asked her to find the possible ways by which the number n can be represented using 1 and 3.Write any efficient algorithm to find the possible ways*/
 #include <stdio.h>
-int count_zeros(int arr[], int low, int high) {
-    if (low > high) {
+#include <stdlib.h>
+
+long long int countWays(int n) {
+    if (n < 0) {
         return 0;
     }
-    if (low == high) {
-        return (arr[low] == 0) ? 1 : 0;
+    if (n == 0) {
+        return 1;
     }
-    int mid = (low + high) / 2;
-    if (arr[mid] == 0) {
-        return high - mid + 1 + count_zeros(arr, low, mid - 1);
-    } else {
-        return count_zeros(arr, mid + 1, high);
+
+    long long int *dp = (long long int *)malloc((n + 1) * sizeof(long long int));
+    if (dp == NULL) {
+        return -1; // Or handle error appropriately
     }
+
+    dp[0] = 1;
+
+    for (int i = 1; i <= n; i++) {
+        dp[i] = dp[i - 1];
+        if (i >= 3) {
+            dp[i] += dp[i - 3];
+        }
+    }
+
+    long long int result = dp[n];
+    free(dp);
+    return result;
 }
+
 int main() {
-    int m; 
-    scanf("%d", &m);  
-    int arr[m];
-    for (int i = 0; i < m; i++) {
-        scanf("%d", &arr[i]);
-    }
-    int result = count_zeros(arr, 0, m - 1);
-    printf("%d\n", result);
+    int n;
+    scanf("%d", &n);
+    printf("%lld\n", countWays(n)); // Use %lld for long long int
     return 0;
 }

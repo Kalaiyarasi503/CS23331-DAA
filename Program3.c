@@ -1,33 +1,28 @@
-/*Given a sorted array and a value x, the floor of x is the largest element in array smaller than or equal to x. Write divide and conquer algorithm to find floor of x*/
+/*Given two strings find the length of the common longest subsequence(need not be contiguous) between the two*/
 #include <stdio.h>
-int findFloor(int arr[], int n, int x) {
-    int low = 0, high = n - 1;
-    int floor = -1;
-    while (low <= high) {
-        int mid = (low + high) / 2;
-        if (arr[mid] == x) {
-            return arr[mid];
-        }
-        else if (arr[mid] < x) {
-            floor = arr[mid];
-            low = mid + 1;     
-        }
-        else {
-            high = mid - 1;
+#include <string.h>
+int longestCommonSubsequenceLength(char *s1, char *s2) {
+    int n = strlen(s1);
+    int m = strlen(s2);
+    int dp[n + 1][m + 1];
+    for (int i = 0; i <= n; i++) {
+        for (int j = 0; j <= m; j++) {
+            if (i == 0 || j == 0) {
+                dp[i][j] = 0;
+            } else if (s1[i - 1] == s2[j - 1]) {
+                dp[i][j] = dp[i - 1][j - 1] + 1;
+            } else {
+                dp[i][j] = (dp[i - 1][j] > dp[i][j - 1]) ? dp[i - 1][j] : dp[i][j - 1];
+            }
         }
     }
-    return floor;  
+    return dp[n][m];
 }
 int main() {
-    int n;
-    scanf("%d", &n);  
-    int arr[n];
-    for (int i = 0; i < n; i++) {
-        scanf("%d", &arr[i]);
-    }
-    int x;
-    scanf("%d", &x);  
-    int result = findFloor(arr, n, x);
-    printf("%d\n", result);
+    char s1[100];
+    char s2[100];
+    scanf("%s", s1);
+    scanf("%s", s2);
+    printf("%d\n", longestCommonSubsequenceLength(s1, s2));
     return 0;
 }
