@@ -1,14 +1,25 @@
-/*The CEO of company ABC Inc wanted to encourage the employees coming on time to the office. So he announced that for every consecutive day an employee comes on time in a week (starting from Monday to Saturday), he will be awarded Rs.200 more than the previous day as "Punctuality Incentive". The incentive I for the starting day (ie on Monday) is passed as the input to the program. The number of days N an employee came on time consecutively starting from Monday is also passed as the input. The program must calculate and print the "Punctuality Incentive" P of the employee.*/
+/*Given an array A of sorted integers and another non negative integer k, find if there exists 2 indices i and j such that A[j] - A[i] = k, i != j.
+Input Format:
+First Line n - Number of elements in an array
+Next n Lines - N elements in the array
+k - Non - Negative Integer*/
+#include<stdlib.h>
 #include<stdio.h>
 int main(){
-    int i,n,p,totalIncentive=0;
-    scanf("%d %d", &i,&n);
-    p=i;
-    totalIncentive=p;
-    for(int day=2; day<=n;day++){
-        p+=200;
-        totalIncentive += p;
+    int n;
+    scanf("%d",&n);
+    int arr[n];
+    for(int i=0;i<n;i++){
+        scanf("%d",&arr[i]);
     }
-    printf("%d\n",totalIncentive);
-    return 0;
+    int k;
+    scanf("%d",&k);
+    for(int i=0;i<n;i++){
+        for(int j=0;j<n;j++){
+            if(arr[j]-arr[i]==k && i!=j){
+                printf("%d",1);
+                exit(0);
+            }
+        }
+    }printf("%d",0);
 }

@@ -1,14 +1,41 @@
-/*Malini goes to BestSave hyper market to buy grocery items. BestSave hyper market provides 10% discount on the bill amount B when ever the bill amount B is more than Rs.2000.
-The bill amount B is passed the input to the program. The program must print the final amount A payable by Malini.*/
-#include<stdio.h>
-int main(){
-    float billAmount,finalAmount;
-    scanf("%f",&billAmount);
-    if (billAmount > 2000) {
-        finalAmount = billAmount - (0.10*billAmount);
-    }else{
-        finalAmount = billAmount;
+/*Find the intersection of two sorted arrays.
+OR in other words,
+Given 2 sorted arrays, find all the elements which occur in both the arrays*/
+#include <stdio.h>
+int main() {
+    int t;
+    scanf("%d", &t);  
+
+    while(t--) {
+        int n;
+        scanf("%d", &n);  
+        int arr[n];
+        for(int i = 0; i < n; i++) {
+            scanf("%d", &arr[i]);
+        }
+
+        int m;
+        scanf("%d", &m);  
+        int brr[m];
+        for(int i = 0; i < m; i++) {
+            scanf("%d", &brr[i]);
+        }
+
+        int i = 0, j = 0;
+        while(i < n && j < m) {
+            if(arr[i] < brr[j]) {
+                i++;
+            } else if(arr[i] > brr[j]) {
+                j++;
+            } else {
+                printf("%d ", arr[i]);
+                i++;
+                j++;
+            }
+        }
+
+        printf("\n");  
     }
-    printf("%.2f\n", finalAmount);
+
     return 0;
 }

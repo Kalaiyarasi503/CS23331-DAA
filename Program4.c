@@ -1,11 +1,44 @@
-/*Baba is very kind to beggars and every day Baba donates half of the amount he has when ever a beggar requests him. The money M left in Baba's hand is passed as the input and the number of beggars B who received the alms are passed as the input. The program must print the money Baba had in the beginning of the day.
-*/
-#include<stdio.h>
-#include<math.h>
-int main(){
-    double m,b,initialAmount;
-    scanf("%lf %lf",&m,&b);
-    initialAmount=m*pow(2,b);
-    printf("%.0lf\n",initialAmount);
+/*Find the intersection of two sorted arrays.
+
+OR in other words,
+
+Given 2 sorted arrays, find all the elements which occur in both the arrays*/
+#include <stdio.h>
+int main() {
+    int t;
+    scanf("%d", &t);  
+
+    while(t--) {
+        int n;
+        scanf("%d", &n);  
+        int arr[n];
+        for(int i = 0; i < n; i++) {
+            scanf("%d", &arr[i]);
+        }
+
+        int m;
+        scanf("%d", &m);  
+        int brr[m];
+        for(int i = 0; i < m; i++) {
+            scanf("%d", &brr[i]);
+        }
+
+    
+        int i = 0, j = 0;
+        while(i < n && j < m) {
+            if(arr[i] < brr[j]) {
+                i++;
+            } else if(arr[i] > brr[j]) {
+                j++;
+            } else {
+                printf("%d ", arr[i]);
+                i++;
+                j++;
+            }
+        }
+
+        printf("\n");
+    }
+
     return 0;
 }
