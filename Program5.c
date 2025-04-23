@@ -1,10 +1,35 @@
-/*Given an array A of sorted integers and another non negative integer k, find if there exists 2 indices i and j such that A[j] - A[i] = k, i != j.
-Input Format:
-First Line n - Number of elements in an array
-Next n Lines - N elements in the array
-k - Non - Negative Integer*/
-#include<stdlib.h>
+/*Write a Program to Implement the Quick Sort Algorithm*/
 #include<stdio.h>
+void swap(int *a,int *b){
+    int temp= *a;
+    *a= *b;
+    *b = temp;
+}
+int partition(int arr[],int low,int high){
+    int pivot=arr[high];
+    int i=(low-1);
+    for(int j=low;j<high;j++){
+        if(arr[j]<pivot){
+            i++;
+            swap(&arr[i],&arr[j]);
+        }
+    }
+    swap(&arr[i+1], &arr[high]);
+    return(i+1);
+}
+void quicksort(int arr[],int low,int high){
+    if(low<high){
+         int pi=partition(arr,low,high);
+         quicksort(arr,low,pi-1);
+         quicksort(arr,pi+1,high);
+        }
+}
+void printArray(int arr[],int size){
+    for(int i=0;i<size;i++){
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+}
 int main(){
     int n;
     scanf("%d",&n);
@@ -12,14 +37,12 @@ int main(){
     for(int i=0;i<n;i++){
         scanf("%d",&arr[i]);
     }
-    int k;
-    scanf("%d",&k);
-    for(int i=0;i<n;i++){
-        for(int j=0;j<n;j++){
-            if(arr[j]-arr[i]==k && i!=j){
-                printf("%d",1);
-                exit(0);
-            }
-        }
-    }printf("%d",0);
+    quicksort(arr,0,n-1);
+    printArray(arr , n);
+    return 0;
 }
+
+            
+            
+        
+    

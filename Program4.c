@@ -1,44 +1,33 @@
-/*Find the intersection of two sorted arrays.
-
-OR in other words,
-
-Given 2 sorted arrays, find all the elements which occur in both the arrays*/
-#include <stdio.h>
-int main() {
-    int t;
-    scanf("%d", &t);  
-
-    while(t--) {
-        int n;
-        scanf("%d", &n);  
-        int arr[n];
-        for(int i = 0; i < n; i++) {
-            scanf("%d", &arr[i]);
-        }
-
-        int m;
-        scanf("%d", &m);  
-        int brr[m];
-        for(int i = 0; i < m; i++) {
-            scanf("%d", &brr[i]);
-        }
-
-    
-        int i = 0, j = 0;
-        while(i < n && j < m) {
-            if(arr[i] < brr[j]) {
-                i++;
-            } else if(arr[i] > brr[j]) {
-                j++;
-            } else {
-                printf("%d ", arr[i]);
-                i++;
-                j++;
-            }
-        }
-
-        printf("\n");
+/*Given a sorted array of integers say arr[] and a number x. Write a recursive program using divide and conquer strategy to check if there exist two elements in the array whose sum = x. If there exist such two elements then return the numbers, otherwise print as “No”.
+Note: Write a Divide and Conquer Solution*/
+#include<stdio.h>
+int main(){
+    int n,x;
+    scanf("%d",&n);
+    int arr[n];
+    for(int i=0;i<n;i++){
+        scanf("%d",&arr[i]);
     }
-
-    return 0;
+    scanf("%d",&x);
+    int left=0,right=n-1;
+    int found=0;
+    while(left<right){
+        int sum=arr[left]+arr[right];
+        if(sum==x){
+            printf("%d\n",arr[left]);
+            printf("%d\n",arr[right]);
+            found=1;
+            break;
+    }    
+    if (sum<x){
+        left++;
+    }
+    else{
+        right++;
+    }
+}
+if(!found){
+    printf("No\n");
+}
+return 0;
 }
